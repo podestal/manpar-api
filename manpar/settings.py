@@ -93,13 +93,6 @@ DATABASES = {
     }
 }
 
-# DB_DEV_NAME = manpar
-# DB_DEV_NAMEHOST = localhost
-# DB_DEV_USER = root
-# DB_DEV_PASSWORD = 13angulo
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
