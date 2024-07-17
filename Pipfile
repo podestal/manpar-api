@@ -11,6 +11,8 @@ djangorestframework-simplejwt = "*"
 python-dotenv = "*"
 pymysql = "*"
 drf-nested-routers = "*"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
