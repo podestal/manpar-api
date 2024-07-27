@@ -23,4 +23,4 @@ class CreateCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ['name', 'description']
+        fields = ['id', 'name', 'description']

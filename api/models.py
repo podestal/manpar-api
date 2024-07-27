@@ -3,7 +3,7 @@ from django.db import models
 class Category(models.Model):
 
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -20,3 +20,34 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+class Table(models.Model):
+
+    number = models.IntegerField(unique=True)
+    is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.number
+    
+class Order(models.Model):
+
+    PENDING_DISH = 'P'
+    SERVED_DISH = 'S'
+    COMPLETED_DISH = 'C'
+
+    ORDER_STATUS_OPTIONS = [
+        (PENDING_DISH, 'Pending'),
+        (SERVED_DISH, 'Served'),
+        (COMPLETED_DISH, 'Completed')
+    ]
+
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(choices=ORDER_STATUS_OPTIONS, max_length=1)
+
+class OrderItem(models.Model):
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
