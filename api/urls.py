@@ -5,5 +5,8 @@ router = routers.DefaultRouter()
 
 router.register('dishes', views.DishViewSet)
 router.register('categories', views.CategoryViewSet)
+router.register('tables', views.TableViewSet)
+router.register('orders', views.OrderViewSet)
+router.register('order-items', views.OrderItemViewSet)
 
 urlpatterns = router.urls
