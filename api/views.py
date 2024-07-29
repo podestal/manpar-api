@@ -27,7 +27,7 @@ class CategoryViewSet(ModelViewSet):
     
 class TableViewSet(ModelViewSet):
 
-    queryset = models.Table.objects.all()
+    queryset = models.Table.objects.prefetch_related('orders')
     allow_http_methods = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):

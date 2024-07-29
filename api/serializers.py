@@ -25,18 +25,6 @@ class CreateCategorySerializer(serializers.ModelSerializer):
         model = models.Category
         fields = ['id', 'name', 'description']
 
-class GetTableSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Table
-        fields = ['id', 'number', 'is_available']
-
-class CreateTableSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Table
-        fields = ['id', 'number', 'is_available']
-
 class GetOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -52,6 +40,26 @@ class CreateOrderSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['user_id']
         return models.Order.objects.create(created_by=user, **validated_data)
+
+class GetTableSerializer(serializers.ModelSerializer):
+
+    current_orders = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Table
+        fields = ['id', 'number', 'is_available', 'current_orders']
+
+    def get_current_orders(self, obj):
+        orders = obj.orders.filter(status__in=[models.Order.PENDING_DISH, models.Order.SERVED_DISH])
+        return GetOrderSerializer(orders, many=True).data
+    
+
+class CreateTableSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Table
+        fields = ['id', 'number', 'is_available']
+
 
 class GetOrderItemSerializer(serializers.ModelSerializer):
 

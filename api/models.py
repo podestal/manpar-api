@@ -42,7 +42,7 @@ class Order(models.Model):
         (COMPLETED_DISH, 'Completed')
     ]
 
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='orders')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=ORDER_STATUS_OPTIONS, max_length=1)
