@@ -37,13 +37,16 @@ class TableViewSet(ModelViewSet):
     
 class OrderViewSet(ModelViewSet):
 
-    queryset = models.Order.objects.select_related('table')
+    queryset = models.Order.objects.select_related('table', 'created_by')
     allow_http_methods = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateOrderSerializer
         return serializers.GetOrderSerializer
+    
+    def get_serializer_context(self):
+        return {'user_id': self.request.user}
 
 class OrderItemViewSet(ModelViewSet):
 

@@ -41,13 +41,17 @@ class GetOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Order
-        fields = ['id', 'table', 'created_at', 'updated_at', 'status']
+        fields = ['id', 'table', 'created_at', 'updated_at', 'status', 'created_by']
 
 class CreateOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Order
         fields = ['id', 'table', 'status']
+
+    def create(self, validated_data):
+        user = self.context['user_id']
+        return models.Order.objects.create(created_by=user, **validated_data)
 
 class GetOrderItemSerializer(serializers.ModelSerializer):
 
