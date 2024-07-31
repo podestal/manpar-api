@@ -53,4 +53,5 @@ class OrderItem(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    observations = models.TextField(null=True, blank=True)
     quantity = models.PositiveIntegerField()

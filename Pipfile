@@ -13,6 +13,7 @@ pymysql = "*"
 drf-nested-routers = "*"
 django-cors-headers = "*"
 django-debug-toolbar = "*"
+django-filter = "*"
 
 [dev-packages]
 

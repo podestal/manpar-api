@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 from . import serializers
 from . import models
 
 class DishViewSet(ModelViewSet):
 
     queryset = models.Dish.objects.select_related('category')
-    allow_http_methods = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
     
     def get_serializer_class(self):
 
@@ -17,7 +18,7 @@ class DishViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
 
     queryset = models.Category.objects.all()
-    allow_http_methods = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
     
     def get_serializer_class(self):
 
@@ -28,17 +29,20 @@ class CategoryViewSet(ModelViewSet):
 class TableViewSet(ModelViewSet):
 
     queryset = models.Table.objects.prefetch_related('orders')
-    allow_http_methods = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return serializers.CreateTableSerializer
+            return serializers.CreateTableSerializer    
         return serializers.GetTableSerializer
     
 class OrderViewSet(ModelViewSet):
 
     queryset = models.Order.objects.select_related('table', 'created_by')
-    allow_http_methods = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['table', 'status']
+
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -51,7 +55,7 @@ class OrderViewSet(ModelViewSet):
 class OrderItemViewSet(ModelViewSet):
 
     queryset = models.OrderItem.objects.select_related('order', 'dish')
-    allow_http_methods = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
