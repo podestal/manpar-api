@@ -5,7 +5,7 @@ class GetDishSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Dish
-        fields = ['id', 'name', 'description', 'cost', 'created_at', 'available', 'picture', 'category']
+        fields = ['id', 'name', 'description', 'cost', 'created_at', 'available', 'picture', 'category', 'image']
 
 class CreateDishSerializer(serializers.ModelSerializer):
 
@@ -19,15 +19,17 @@ class UpdateDishSerializer(serializers.ModelSerializer):
         model = models.Dish
         fields = ['id', 'name', 'description', 'cost', 'available', 'picture', 'category']
 
-class DishImageSerializer(serializers.ModelSerializer):
+class GetDishImageSerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = models.DishImage
         fields = ['id', 'image']
 
-    def create(self, validated_data):
-        dish_id = self.context['dish_id']
-        return models.DishImage.objects.create(dish_id=dish_id,**validated_data)
+class CreateDishImageSerializer(serializers.ModelSerializer):
+
+    class Meta: 
+        model = models.DishImage
+        fields = ['id', 'image', 'dish']
 
 class GetCategorySerializer(serializers.ModelSerializer):
 
@@ -59,15 +61,10 @@ class CreateOrderSerializer(serializers.ModelSerializer):
 
 class GetTableSerializer(serializers.ModelSerializer):
 
-    current_orders = serializers.SerializerMethodField()
-
     class Meta:
         model = models.Table
-        fields = ['id', 'number', 'is_available', 'current_orders']
+        fields = ['id', 'number', 'is_available', 'orders']
 
-    def get_current_orders(self, obj):
-        orders = obj.orders.filter(status__in=[models.Order.PENDING_DISH, models.Order.SERVED_DISH])
-        return GetOrderSerializer(orders, many=True).data
     
 
 class CreateTableSerializer(serializers.ModelSerializer):

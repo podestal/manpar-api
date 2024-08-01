@@ -19,14 +19,14 @@ class DishViewSet(ModelViewSet):
     
 class DishImageViewSet(ModelViewSet):
 
-    serializer_class = serializers.DishImageSerializer
+    queryset = models.DishImage.objects.select_related('dish')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['dish']
 
-    def get_queryset(self):
-        print('KWARGS', self.kwargs)
-        return models.DishImage.objects.select_related('dish').filter(dish_id=self.kwargs['dishes_pk'])
-
-    def get_serializer_context(self):
-        return {'dish_id': self.kwargs['dishes_pk']}
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateDishImageSerializer
+        return serializers.GetDishImageSerializer
     
 class CategoryViewSet(ModelViewSet):
 
