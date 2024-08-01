@@ -11,7 +11,23 @@ class CreateDishSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Dish
-        fields = ['name', 'description', 'cost', 'picture', 'category']
+        fields = ['id', 'name', 'description', 'cost', 'available', 'picture', 'category']
+
+class UpdateDishSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Dish
+        fields = ['id', 'name', 'description', 'cost', 'available', 'picture', 'category']
+
+class DishImageSerializer(serializers.ModelSerializer):
+
+    class Meta: 
+        model = models.DishImage
+        fields = ['id', 'image']
+
+    def create(self, validated_data):
+        dish_id = self.context['dish_id']
+        return models.DishImage.objects.create(dish_id=dish_id,**validated_data)
 
 class GetCategorySerializer(serializers.ModelSerializer):
 

@@ -13,7 +13,20 @@ class DishViewSet(ModelViewSet):
 
         if self.request.method == 'POST':
             return serializers.CreateDishSerializer
+        if self.request.method == 'PATCH':
+            return serializers.UpdateDishSerializer
         return serializers.GetDishSerializer
+    
+class DishImageViewSet(ModelViewSet):
+
+    serializer_class = serializers.DishImageSerializer
+
+    def get_queryset(self):
+        print('KWARGS', self.kwargs)
+        return models.DishImage.objects.select_related('dish').filter(dish_id=self.kwargs['dishes_pk'])
+
+    def get_serializer_context(self):
+        return {'dish_id': self.kwargs['dishes_pk']}
     
 class CategoryViewSet(ModelViewSet):
 
@@ -56,6 +69,8 @@ class OrderItemViewSet(ModelViewSet):
 
     queryset = models.OrderItem.objects.select_related('order', 'dish')
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['order']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

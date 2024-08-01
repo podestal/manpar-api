@@ -21,6 +21,11 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+    
+class DishImage(models.Model):
+
+    dish = models.OneToOneField(Dish, on_delete=models.CASCADE, related_name='image')
+    image = models.ImageField(upload_to='dishes/')
 
 class Table(models.Model):
 
