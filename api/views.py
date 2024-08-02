@@ -6,7 +6,7 @@ from . import models
 
 class DishViewSet(ModelViewSet):
 
-    queryset = models.Dish.objects.select_related('category')
+    queryset = models.Dish.objects.select_related('category').prefetch_related('image')
     http_method_names = ['get', 'post', 'patch', 'delete']
     
     def get_serializer_class(self):
@@ -67,10 +67,10 @@ class OrderViewSet(ModelViewSet):
 
 class OrderItemViewSet(ModelViewSet):
 
-    queryset = models.OrderItem.objects.select_related('order', 'dish')
+    queryset = models.OrderItem.objects.select_related('order', 'dish', 'table')
     http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['order']
+    filterset_fields = ['order', 'table']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

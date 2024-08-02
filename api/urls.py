@@ -4,7 +4,7 @@ from . import views
 router = routers.DefaultRouter()
 
 router.register('dishes', views.DishViewSet)
-router.register('images', views.DishImageViewSet)
+router.register('dish-images', views.DishImageViewSet)
 
 router.register('categories', views.CategoryViewSet)
 router.register('tables', views.TableViewSet)
