@@ -85,3 +85,15 @@ class CreateOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderItem
         fields = ['id', 'dish', 'order', 'quantity', 'observations', 'table']
+
+class GetBillSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Bill
+        fields = ['id', 'table']
+
+class CreateBillSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Bill
+        fields = ['id', 'table']

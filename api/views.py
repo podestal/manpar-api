@@ -77,3 +77,14 @@ class OrderItemViewSet(ModelViewSet):
             return serializers.CreateOrderItemSerializer
         return serializers.GetOrderItemSerializer
 
+class BillViewSet(ModelViewSet):
+
+    queryset = models.Bill.objects.select_related('table')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['table']
+
+    def get_serializer_class(self):
+
+        if self.request.method == 'POST':
+            return serializers.CreateBillSerializer
+        return serializers.GetBillSerializer
