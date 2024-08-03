@@ -41,7 +41,7 @@ class CategoryViewSet(ModelViewSet):
     
 class TableViewSet(ModelViewSet):
 
-    queryset = models.Table.objects.prefetch_related('orders')
+    queryset = models.Table.objects.prefetch_related('orders', 'bill')
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
@@ -67,10 +67,10 @@ class OrderViewSet(ModelViewSet):
 
 class OrderItemViewSet(ModelViewSet):
 
-    queryset = models.OrderItem.objects.select_related('order', 'dish', 'table')
+    queryset = models.OrderItem.objects.select_related('order', 'dish', 'table', 'bill')
     http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['order', 'table']
+    filterset_fields = ['order', 'table', 'bill', 'created_at']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

@@ -55,7 +55,7 @@ class Order(models.Model):
 
 class Bill(models.Model):
 
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    table = models.OneToOneField(Table, on_delete=models.CASCADE, related_name='bill')
     
 
 class OrderItem(models.Model):
@@ -66,4 +66,4 @@ class OrderItem(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     observations = models.TextField(null=True, blank=True)
     quantity = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    created_at = models.DateField(auto_now_add=True, null=True, blank=True)
