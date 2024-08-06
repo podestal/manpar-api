@@ -5,7 +5,7 @@ router = routers.DefaultRouter()
 
 router.register('dishes', views.DishViewSet)
 router.register('dish-images', views.DishImageViewSet)
-router.register('categories', views.CategoryViewSet)
+router.register('categories', views.CategoryViewSet, basename='categories')
 router.register('tables', views.TableViewSet)
 router.register('orders', views.OrderViewSet)
 router.register('order-items', views.OrderItemViewSet)

@@ -35,13 +35,13 @@ class GetCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'description', 'time_period']
 
 class CreateCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'description', 'time_period']
 
 class GetOrderSerializer(serializers.ModelSerializer):
 

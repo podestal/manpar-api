@@ -34,7 +34,6 @@ class CategoryViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
     
     def get_serializer_class(self):
-
         if self.request.method == 'POST':
             return serializers.CreateCategorySerializer
         return serializers.GetCategorySerializer

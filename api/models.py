@@ -3,8 +3,19 @@ from django.db import models
 
 class Category(models.Model):
 
+    MORNING = 'M'
+    EVENING = 'E'
+    BOTH = 'B'
+
+    TIME_PERIODS = [
+        (MORNING, 'Morning'),
+        (EVENING, 'Evening'),
+        (BOTH, 'Both'),
+    ]
+
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
+    time_period = models.CharField(max_length=1, choices=TIME_PERIODS)
 
     def __str__(self):
         return self.name
