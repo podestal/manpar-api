@@ -75,6 +75,7 @@ class OrderItem(models.Model):
     table = models.ForeignKey(Table, on_delete=models.SET_NULL, null=True, blank=True)
     bill = models.ForeignKey(Bill, on_delete=models.SET_NULL, null=True, blank=True)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
     observations = models.TextField(null=True, blank=True)
     quantity = models.PositiveIntegerField()
     created_at = models.DateField(auto_now_add=True, null=True, blank=True)

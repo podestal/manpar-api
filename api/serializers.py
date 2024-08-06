@@ -78,13 +78,13 @@ class GetOrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.OrderItem
-        fields = ['id', 'dish', 'order', 'quantity', 'observations', 'table', 'bill', 'created_at']
+        fields = ['id', 'dish', 'order', 'quantity', 'observations', 'table', 'bill', 'created_at', 'cost']
 
 class CreateOrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.OrderItem
-        fields = ['id', 'dish', 'order', 'quantity', 'observations', 'table', 'bill']
+        fields = ['id', 'dish', 'order', 'quantity', 'observations', 'table', 'bill', 'cost']
 
 class GetBillSerializer(serializers.ModelSerializer):
 
