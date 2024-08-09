@@ -53,6 +53,8 @@ class CategoryViewSet(ModelViewSet):
                 return models.Category.objects.filter(time_period__in=[models.Category.MORNING])
             if night_start <= current_time < night_end:
                 return models.Category.objects.filter(time_period__in=[models.Category.EVENING])
+            
+            return models.Category.objects.none()
         
         return models.Category.objects.all()
 
