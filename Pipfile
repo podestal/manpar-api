@@ -15,6 +15,7 @@ django-cors-headers = "*"
 django-debug-toolbar = "*"
 django-filter = "*"
 pillow = "*"
+gunicorn = "*"
 
 [dev-packages]
 
