@@ -1,3 +1,5 @@
+from django.utils import timezone
+from datetime import time
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -37,6 +39,23 @@ class CategoryViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return serializers.CreateCategorySerializer
         return serializers.GetCategorySerializer
+
+    def get_queryset(self):
+
+        current_time = timezone.localtime().time()
+        morning_start = time(11, 0)
+        morning_end = time(18, 0)
+        night_start = time (19, 0)
+        night_end = time(23, 30)
+
+        if (self.request.user.is_anonymous):
+            if morning_start <= current_time < morning_end:
+                return models.Category.objects.filter(time_period__in=[models.Category.MORNING])
+            if night_start <= current_time < night_end:
+                return models.Category.objects.filter(time_period__in=[models.Category.EVENING])
+        
+        return models.Category.objects.all()
+
     
 class TableViewSet(ModelViewSet):
 
