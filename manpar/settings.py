@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-*)&9=d125tl6j1cuf78_t00tp=k3de(#_c=y95u!%em9h4^c#w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'https://66b8b328a5564d44c9267690--regal-gaufre-396f7d.netlify.app']
 
 
 # Application definition
@@ -158,12 +158,13 @@ AUTH_USER_MODEL = 'core.User'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://66b8a3de18f5a5430187cc16--regal-gaufre-396f7d.netlify.app"
+    "https://66b8a3de18f5a5430187cc16--regal-gaufre-396f7d.netlify.app",
 ]
 
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
+    '0.0.0.0'
     # ...
 ]
 
