@@ -16,6 +16,8 @@ django-debug-toolbar = "*"
 django-filter = "*"
 pillow = "*"
 gunicorn = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 

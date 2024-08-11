@@ -26,12 +26,12 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-*)&9=d125tl6j1cuf78_t00tp=k3de(#_c=y95u!%em9h4^c#w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '66b8a3de18f5a5430187cc16--regal-gaufre-396f7d.netlify.app']
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'core',
     'api',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -93,10 +94,11 @@ WSGI_APPLICATION = 'manpar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_DEV_NAME'),
-        'HOST': os.environ.get('DB_DEV_NAMEHOST'),
-        'USER': os.environ.get('DB_DEV_USER'),
-        'PASSWORD': os.environ.get('DB_DEV_PASSWORD'),
+        'NAME': 'manpar',
+        'HOST': 'manpar-foodhouse.cxai828s6j8h.us-east-1.rds.amazonaws.com',
+        'USER': 'podestal',
+        'PASSWORD': '13anguloX',
+        'PORT': '3306',
     }
 }
 
@@ -156,6 +158,7 @@ AUTH_USER_MODEL = 'core.User'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://66b8a3de18f5a5430187cc16--regal-gaufre-396f7d.netlify.app"
 ]
 
 INTERNAL_IPS = [
@@ -171,3 +174,24 @@ TIME_ZONE = 'America/Lima'
 
 USE_TZ = True 
 
+# S3 BUCKET
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+AWS_STORAGE_BUCKET_NAME = 'manpar-foodhouse'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE = False
+
+STORAGES = {
+
+    # Media file (image) management   
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
