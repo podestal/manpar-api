@@ -102,6 +102,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv('DB_NAME', 'manpar'),
+#         'USER': os.getenv('DB_USER', 'root'),
+#         'PASSWORD': os.getenv('DB_PASSWORD', '13angulo'),
+#         'HOST': os.getenv('DB_HOST', 'localhost'),
+#         'PORT': os.getenv('DB_PORT', '3306'),
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -158,7 +169,7 @@ AUTH_USER_MODEL = 'core.User'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://regal-gaufre-396f7d.netlify.app/",
+    "https://regal-gaufre-396f7d.netlify.app",
 ]
 
 INTERNAL_IPS = [
