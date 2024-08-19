@@ -18,6 +18,9 @@ pillow = "*"
 gunicorn = "*"
 django-storages = "*"
 boto3 = "*"
+channels = "*"
+channels-redis = "*"
+redis = "*"
 
 [dev-packages]
 

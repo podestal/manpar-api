@@ -3,6 +3,8 @@ from datetime import time
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 from . import serializers
 from . import models
 
@@ -92,6 +94,18 @@ class OrderViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['table', 'status']
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if 'status' in serializer.validated_data:
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                "orders_group",
+                {
+                    "type": "order_status_update",
+                    "message": f"Order {instance.id} status changed to {instance.get_status_display()}"
+                }
+            )
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
