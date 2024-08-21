@@ -171,6 +171,7 @@ AUTH_USER_MODEL = 'core.User'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://regal-gaufre-396f7d.netlify.app",
+    "https://manpar.netlify.app"
 ]
 
 INTERNAL_IPS = [
