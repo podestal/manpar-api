@@ -60,7 +60,7 @@ class CategoryViewSet(ModelViewSet):
     def get_queryset(self):
 
         current_time = timezone.localtime().time()
-        morning_start = time(7, 0)
+        morning_start = time(11, 0)
         morning_end = time(18, 0)
         night_start = time (19, 0)
         night_end = time(23, 30)
